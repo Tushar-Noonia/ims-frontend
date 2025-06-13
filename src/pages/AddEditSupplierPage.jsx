@@ -102,7 +102,7 @@ const AddEditSupplierPage = () => {
                         <input type="text" value={address} required onChange={(e)=>setAddress(e.target.value)}/>
                     </div>
 
-                    <button type="submit">{isEditing ? "Update Supplier" : "Add Supplier"}</button>
+                    <button type="submit" onClick={()=>navigate('/supplier')}>{isEditing ? "Update Supplier" : "Add Supplier"}</button>
                 </form>
             </div>
         </Layout>

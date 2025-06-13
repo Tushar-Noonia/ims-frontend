@@ -105,6 +105,17 @@ export default class ApiService {
         return response.data;
     }
 
+    static async getUserRequests(userId){
+        const response=await axios.get(`${this.BASE_URL}/users/userRequests/${userId}`,{headers: this.getHeader()});
+        return response.data;
+    }
+
+    static async getUserTransactions(userId)
+    {
+        const response=await axios.get(`${this.BASE_URL}/users/userTransactions/${userId}`,{headers: this.getHeader()});
+        return response.data;
+    }
+
 
     //PRODUCT API CALLS
 
@@ -261,6 +272,56 @@ export default class ApiService {
         return response.data;
     }
 
+
+    // REQUEST API CALLS
+
+    static async addRequest(requestData) {
+        const response = await axios.post(
+            `${this.BASE_URL}/requests/add`,
+            requestData,
+            { headers: this.getHeader() }
+        );
+        return response.data;
+    }
+
+    static async getAllRequests(filter) {
+        const response = await axios.get(
+            `${this.BASE_URL}/requests/all`,
+            {
+                headers: this.getHeader(),
+                params: { filter }
+            }
+        );
+        return response.data;
+    }
+
+    static async getRequestById(requestId) {
+        const response = await axios.get(
+            `${this.BASE_URL}/requests/${requestId}`,
+            { headers: this.getHeader() }
+        );
+        return response.data;
+    }
+
+    static async getRequestByMonthAndYear(month, year) {
+        const response = await axios.get(
+            `${this.BASE_URL}/requests/by-month-and-year`,
+            {
+                headers: this.getHeader(),
+                params: { month, year }
+            }
+        );
+        return response.data;
+    }
+
+    static async updateRequestStatus(requestId, requestStatus) {
+        const response = await axios.put(
+            `${this.BASE_URL}/requests/update/${requestId}`,
+            requestStatus,
+            { headers: this.getHeader() }
+        );
+        return response.data;
+    }
 
 
     //Authentication API CALLS

@@ -1,42 +1,77 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/layout";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ApiService from "../services/ApiService";
 import PaginationComponent from "../component/paginationComponent";
 
-
 const ProductPage = () => {
-
     const [products, setProducts] = useState([]);
+    const [allProducts, setAllProducts] = useState([]); // For search filtering
     const [message, setMessage] = useState("");
-    const navigate = useNavigate();
-
-
-    //pagination setup
-
+    const [searchFilter, setSearchFilter] = useState("");
+    const [valueToSearch, setValueToSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const itemsPerPage = 5;
+    const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         const getProducts = async () => {
-            try{
+            try {
                 const response = await ApiService.getAllProducts();
-                if(response.status === 200) {
+                if (response.status === 200) {
+                    setAllProducts(response.products);
                     setTotalPages(Math.ceil(response.products.length / itemsPerPage));
-                    setProducts(response.products.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));    
+                    setProducts(
+                        response.products.slice(
+                            (currentPage - 1) * itemsPerPage,
+                            currentPage * itemsPerPage
+                        )
+                    );
                 }
-            }catch (error) {
+            } catch (error) {
                 console.error("Error fetching products:", error);
                 showMessage(error.response?.data?.message || "Failed to fetch products. Please try again.");
             }
-        }
-
+        };
         getProducts();
+    }, [currentPage]);
 
-    },[currentPage]);
+    // Update products when page or search changes
+    useEffect(() => {
+        let filtered = allProducts;
+        if (valueToSearch.trim() !== "") {
+            filtered = allProducts.filter(product =>
+                product.name.toLowerCase().includes(valueToSearch.toLowerCase()) ||
+                product.sku.toLowerCase().includes(valueToSearch.toLowerCase())
+            );
+        }
+        setProducts(
+            filtered.slice(
+                (currentPage - 1) * itemsPerPage,
+                currentPage * itemsPerPage
+            )
+        );
+        setTotalPages(Math.ceil(filtered.length / itemsPerPage));
+    }, [currentPage, valueToSearch, allProducts]);
 
-
+    const handleSearch = () => {
+        setCurrentPage(1);
+        setValueToSearch(searchFilter);
+        if (searchFilter.trim() === "") {
+            setProducts(
+                allProducts.slice(0, itemsPerPage)
+            );
+            setTotalPages(Math.ceil(allProducts.length / itemsPerPage));
+        } else {
+            const filtered = allProducts.filter(product =>
+                product.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
+                product.sku.toLowerCase().includes(searchFilter.toLowerCase())
+            );
+            setProducts(filtered.slice(0, itemsPerPage));
+            setTotalPages(Math.ceil(filtered.length / itemsPerPage));
+        }
+    };
 
     const handleDeleteProduct = async (productId) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
@@ -53,9 +88,7 @@ const ProductPage = () => {
                 showMessage(error.response?.data?.message || "Failed to delete product. Please try again.");
             }
         }
-    }
-
-
+    };
 
     const showMessage = (msg) => {
         setMessage(msg);
@@ -63,8 +96,6 @@ const ProductPage = () => {
             setMessage("");
         }, 4000);
     };
-
-
 
     return (
         <Layout>
@@ -75,6 +106,15 @@ const ProductPage = () => {
                     <div className="add-product-btn">
                         <button onClick={() => navigate("/add-product")}>Add Product</button>
                     </div>
+                </div>
+                <div className="product-search" style={{ marginBottom: "1rem" }}>
+                    <input
+                        placeholder="Search product ..."
+                        value={searchFilter}
+                        onChange={(e) => setSearchFilter(e.target.value)}
+                        type="text"
+                    />
+                    <button onClick={handleSearch}>Search</button>
                 </div>
                 {products &&
                     <div className="product-list">
@@ -87,11 +127,9 @@ const ProductPage = () => {
                                     <p className="price">Price: Rs.{product.price}</p>
                                     <p className="quantity">Quantity: {product.stockQuantity}</p>
                                 </div>
-
                                 <div className="product-actions">
                                     <button className="edit-btn" onClick={() => navigate(`/edit-product/${product.id}`)}>Edit</button>
                                     <button className="delete-btn" onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-
                                 </div>
                             </div>
                         ))}
@@ -102,10 +140,9 @@ const ProductPage = () => {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}
-            >
-            </PaginationComponent>
+            />
         </Layout>
     );
-}
+};
 
 export default ProductPage;

@@ -215,12 +215,10 @@ const AddEditProductPage = () => {
                         )} 
                     </div>
 
-                    <button type="submit" className="submit-btn">
+                    <button onClick={()=>navigate('/product')} type="submit" className="submit-btn">
                         {isEditing ? "Update Product" : "Add Product"}
                     </button>
-
                 </form>
-
             </div>
         </Layout>
     )

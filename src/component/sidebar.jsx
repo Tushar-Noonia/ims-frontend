@@ -41,6 +41,11 @@ const Sidebar = () => {
                 }
                 {isAuthenticated && 
                     <li>
+                        <Link to="/requests">Requests</Link>
+                    </li>
+                }
+                {isAuthenticated && 
+                    <li>
                         <Link to="/purchase">Add To Inventory</Link>
                     </li>
                 }

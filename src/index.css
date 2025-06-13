@@ -1082,6 +1082,73 @@ button:hover {
 }
 
 
+.profile-section-card {
+  background: linear-gradient(145deg, #f3f4f6, #ffffff);
+  border-radius: 15px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.5);
+  padding: 30px 20px;
+  width: 80%;
+  margin: 30px auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-section-card h2 {
+  color: #008080;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.profile-section-card .transaction-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.profile-section-card .transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.profile-section-card .transactions-table th,
+.profile-section-card .transactions-table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.profile-section-card .transactions-table th {
+  background: #f3f4f6;
+  color: #008080;
+  font-weight: 600;
+}
+
+.profile-section-card .transactions-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.profile-section-card .transactions-table tr:hover {
+  background: #e6f7f7;
+}
+
+.profile-section-card button {
+  background: #008080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-section-card button:hover {
+  background: #005f5f;
+}
+
+
 /* Animations */
 @keyframes fadeIn {
   from {
