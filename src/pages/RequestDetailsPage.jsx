@@ -72,7 +72,6 @@ const RequestDetailsPage = () => {
               <div className="section-card">
                 <h2>Product Information</h2>
                 <p>Name: {request.product.name}</p>
-                <p>SKU: {request.product.sku}</p>
                 <p>Price: {request.product.price && request.product.price.toFixed ? request.product.price.toFixed(2) : request.product.price}</p>
                 <p>Stock Quantity: {request.product.stockQuantity}</p>
                 <p>Description: {request.product.description}</p>

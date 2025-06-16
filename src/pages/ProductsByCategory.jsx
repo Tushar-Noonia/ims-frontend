@@ -62,8 +62,7 @@ const ProductsByCategory = () => {
             setTotalPages(Math.ceil(allProducts.length / itemsPerPage));
         } else {
             const filtered = allProducts.filter(product =>
-                product.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
-                product.sku.toLowerCase().includes(searchFilter.toLowerCase())
+                product.name.toLowerCase().includes(searchFilter.toLowerCase())
             );
             setProducts(filtered.slice(0, itemsPerPage));
             setTotalPages(Math.ceil(filtered.length / itemsPerPage));
@@ -75,8 +74,7 @@ const ProductsByCategory = () => {
         let filtered = allProducts;
         if (valueToSearch.trim() !== "") {
             filtered = allProducts.filter(product =>
-                product.name.toLowerCase().includes(valueToSearch.toLowerCase()) ||
-                product.sku.toLowerCase().includes(valueToSearch.toLowerCase())
+                product.name.toLowerCase().includes(valueToSearch.toLowerCase()) 
             );
         }
         setProducts(
@@ -148,8 +146,6 @@ const ProductsByCategory = () => {
                                 />
                                 <div className="product-info">
                                     <h3 className="name">{product.name}</h3>
-                                    <p className="sku">{product.sku}</p>
-                                    <p className="price">Price: Rs.{product.price}</p>
                                     <p className="quantity">
                                         Quantity: {product.stockQuantity}
                                     </p>
