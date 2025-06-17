@@ -153,45 +153,23 @@ const SupplierPage = () => {
         </div>
       )}
 
-      {/* Statistics Cards */}
-      <div className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-card total-suppliers">
-            <div className="stat-icon">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M12 14C16.4183 14 20 17.5817 20 22H4C4 17.5817 7.58172 14 12 14Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-            <div className="stat-content">
-              <div className="stat-value">{totalSuppliers}</div>
-              <div className="stat-label">Total Suppliers</div>
-            </div>
-          </div>
+      
 
-          <div className="stat-card active-suppliers">
-            <div className="stat-icon">
+      {/* Search Section */}
+      <div className="search-section">
+        <div className="search-container">
+          <div className="input-wrapper">
+            <div className="input-icon">
               <svg
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
+                strokeWidth="2"
               >
                 <path
-                  d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -199,34 +177,6 @@ const SupplierPage = () => {
                 />
               </svg>
             </div>
-            <div className="stat-content">
-              <div className="stat-value">{activeSuppliers}</div>
-              <div className="stat-label">Active Suppliers</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Search Section */}
-      <div className="search-section">
-        <div className="search-container">
-          <div className="search-wrapper">
-            <svg
-              className="search-icon"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
             <input
               type="text"
               placeholder="Search suppliers by name, contact, or address..."
@@ -239,13 +189,15 @@ const SupplierPage = () => {
                 className="clear-search"
                 onClick={() => setSearchTerm("")}
                 title="Clear search"
+                type="button"
               >
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="currentColor"
+                  strokeWidth="2"
                 >
                   <path
                     d="M18 6L6 18M6 6L18 18"

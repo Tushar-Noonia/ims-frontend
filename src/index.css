@@ -1249,11 +1249,22 @@
   margin-bottom: 48px;
 }
 
+.hero-content-category {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding-right: 24px;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
 .hero-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 24px;
+    flex-direction: row;
+    align-content: flex-start;
 }
 
 .hero-text {
@@ -2189,7 +2200,7 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 0 24px 32px;
+  margin: 24px 24px 32px 24px; /* <-- Add 24px top margin */
   border-radius: 20px;
   padding: 24px;
   transition: all 0.3s ease;
@@ -2200,10 +2211,12 @@
   box-shadow: 0 8px 25px rgba(0, 128, 128, 0.1);
 }
 
-.header-content {
+.product-form-header .header-content {
   display: flex;
   align-items: center;
   gap: 24px;
+  justify-content: flex-start; /* <-- Align contents to the left */
+  text-align: left;            /* <-- Ensure text is left-aligned */
 }
 
 .back-button {
@@ -2397,12 +2410,34 @@
   color: #64748b;
   z-index: 2;
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .input-wrapper:focus-within .input-icon,
 .select-wrapper:focus-within .select-icon {
   color: #008080;
   transform: translateY(-50%) scale(1.1);
+}
+
+/* Ensure input text does not overlap the icon */
+.input-wrapper input,
+.input-wrapper .search-input,
+.select-wrapper select {
+  width: 100%;
+  padding: 16px 16px 16px 52px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+  color: #1e293b;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper input::placeholder,
+.input-wrapper .search-input::placeholder,
+.select-wrapper select::placeholder {
+  color: #94a3b8;
 }
 
 /* Form Inputs */
@@ -2960,6 +2995,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.transactions-hero .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* or center for centered text */
+  gap: 4px;
 }
 
 .transactions-hero .page-title {
@@ -4462,7 +4504,7 @@ button:hover {
   z-index: 10;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 0 24px;
+  padding: 24px;
 }
 
 .stat-card {

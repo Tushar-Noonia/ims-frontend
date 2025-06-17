@@ -222,7 +222,7 @@ const CategoryPage = () => {
 
         {/* Header Section */}
         <div className="categories-hero">
-          <div className="hero-content">
+          <div className="hero-content-category">
             <h1 className="page-title">Category Management</h1>
             <p className="page-subtitle">
               Organize your inventory with custom categories
@@ -325,9 +325,9 @@ const CategoryPage = () => {
         </div>
 
         {/* Search Section */}
-        <div className="search-section">
-          <div className="search-wrapper">
-            <div className="search-icon">
+         <div className="search-section">
+          <div className="input-wrapper">
+            <div className="input-icon">
               <svg
                 width="20"
                 height="20"
@@ -336,21 +336,28 @@ const CategoryPage = () => {
                 stroke="currentColor"
                 strokeWidth="2"
               >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
+                <path
+                  d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
             <input
               type="text"
-              placeholder="Search categories..."
+              placeholder="Search suppliers by name, contact, or address..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
             {searchTerm && (
               <button
+                className="clear-search"
                 onClick={() => setSearchTerm("")}
-                className="clear-search-btn"
+                title="Clear search"
+                type="button"
               >
                 <svg
                   width="16"
@@ -360,13 +367,18 @@ const CategoryPage = () => {
                   stroke="currentColor"
                   strokeWidth="2"
                 >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                  <path
+                    d="M18 6L6 18M6 6L18 18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             )}
           </div>
-        </div>
+      </div>
 
         {/* Categories List */}
         <div className="categories-list-section">
