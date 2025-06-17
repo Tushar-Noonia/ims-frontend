@@ -407,7 +407,7 @@ const AddEditProductPage = () => {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="price">Price ($) *</label>
+                    <label htmlFor="price">Price (₹) *</label>
                     <div className="input-wrapper">
                       <div className="input-icon">
                         <svg
@@ -418,8 +418,8 @@ const AddEditProductPage = () => {
                           stroke="currentColor"
                           strokeWidth="2"
                         >
-                          <line x1="12" y1="1" x2="12" y2="23"></line>
-                          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M6 12h4m4 0h4m-9-3h6m-6 6h6"></path>
                         </svg>
                       </div>
                       <input

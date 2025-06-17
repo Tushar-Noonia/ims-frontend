@@ -91,11 +91,6 @@ const SupplierPage = () => {
     }
   };
 
-  // Calculate statistics
-  const totalSuppliers = suppliers.length;
-  const activeSuppliers = suppliers.filter(
-    (supplier) => supplier.contactInfo && supplier.contactInfo.trim() !== "",
-  ).length;
 
   return (
     <Layout>

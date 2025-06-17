@@ -8,7 +8,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
@@ -157,9 +156,9 @@ const DashboardPage = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
     }).format(amount);
   };
 
@@ -212,8 +211,8 @@ const DashboardPage = () => {
                 stroke="currentColor"
                 strokeWidth="2"
               >
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M6 12h4m4 0h4m-9-3h6m-6 6h6"></path>
               </svg>
             </div>
             <div className="stat-content">
