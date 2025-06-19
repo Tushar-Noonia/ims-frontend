@@ -17,16 +17,17 @@ const AddEditSupplierPage = () => {
   const { supplierId } = useParams();
 
   useEffect(() => {
-    if (supplierId) {
-      setIsEditing(true);
-      // Fetch supplier details for editing
-      ApiService.getSupplierById(supplierId).then((data) => {
-        setName(data.name || "");
-        setContactInfo(data.contactInfo || "");
-        setAddress(data.address || "");
-      });
-    }
-  }, [supplierId]);
+  if (supplierId) {
+    setIsEditing(true);
+    // Fetch supplier details for editing
+    ApiService.getSupplierById(supplierId).then((data) => {
+      const supplier = data.supplier || {};
+      setName(supplier.name || "");
+      setContactInfo(supplier.contactInfo || "");
+      setAddress(supplier.address || "");
+    });
+  }
+}, [supplierId]);
 
   const validate = () => {
     const errors = {};

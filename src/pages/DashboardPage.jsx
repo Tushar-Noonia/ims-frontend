@@ -8,6 +8,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+
   ResponsiveContainer,
 } from "recharts";
 import { useNavigate } from "react-router-dom";
@@ -236,7 +237,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="stat-card transactions">
+          <div className="stat-card transactions" onClick={()=>navigate("/transactions")}>
             <div className="stat-icon">
               <svg
                 width="24"
@@ -272,7 +273,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="stat-card products">
+          <div className="stat-card products" onClick={()=>navigate("/product")}>
             <div className="stat-icon">
               <svg
                 width="24"
@@ -305,7 +306,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="stat-card requests">
+          <div className="stat-card requests" onClick={()=>navigate("/requests")}>
             <div className="stat-icon">
               <svg
                 width="24"
