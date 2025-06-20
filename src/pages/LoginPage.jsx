@@ -27,7 +27,15 @@ const LoginPage = () => {
         ApiService.saveRole(res.role);
         setMessage(res.message || "Login successful! Redirecting...");
         setMessageType("success");
-        setTimeout(() => navigate("/dashboard"), 1000);
+        if(ApiService.isAdmin())
+        {
+          setTimeout(() => navigate("/dashboard"), 1000);
+        }
+        else
+        {
+          setTimeout(() => navigate("/requests"), 1000);
+        }
+        
       }
     } catch (error) {
       console.error("Login error:", error);

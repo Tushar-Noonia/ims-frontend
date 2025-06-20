@@ -28,7 +28,6 @@ function App() {
 
         {/* Admin Paths */}
         <Route path="/p-by-category/:categoryId" element={<AdminRoute element={<ProductsByCategory />}/>} />
-        <Route path="/category" element={<AdminRoute element={<CategoryPage />} />} />
         <Route path="/supplier" element={<AdminRoute element={<SupplierPage />} />} />
         <Route path="/add-supplier" element={<AdminRoute element={<AddEditSupplierPage />} />} />
         <Route path="/edit-supplier/:supplierId" element={<AdminRoute element={<AddEditSupplierPage />} />} />
@@ -39,6 +38,7 @@ function App() {
         
 
         {/* Admin and Manager Protected Paths */}
+        <Route path="/category" element={<ProtectedRoute element={<CategoryPage />} />} />
         <Route path="/requests" element={<ProtectedRoute element={<RequestsPage/>}/>}/>
         <Route path="/add-request" element={<ProtectedRoute element={<AddRequestPage/>}/>}/>
         <Route path="/requests/:requestId" element={<ProtectedRoute element={<RequestDetailsPage/>}/>}/>

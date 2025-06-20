@@ -406,114 +406,114 @@ const ProfilePage = () => {
         {/* Recent Activity Sections */}
         <div className="activity-sections">
           {/* Recent Transactions */}
-          <div className="activity-card">
-            <div className="activity-header">
-              <div className="header-content">
-                <div className="header-icon transactions">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M6 12h4m4 0h4m-9-3h6m-6 6h6"></path>
-                  </svg>
-                </div>
-                <h3>Recent Transactions</h3>
-              </div>
-              <button
-                onClick={handleViewAllTransactions}
-                className="view-all-btn"
-              >
-                <span>View All</span>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <polyline points="9,18 15,12 9,6"></polyline>
-                </svg>
-              </button>
-            </div>
-
-            <div className="activity-content">
-              {transactions && transactions.length > 0 ? (
-                <div className="activity-list">
-                  {transactions.map((transaction) => (
-                    <div
-                      key={transaction.id}
-                      className="activity-item"
-                      onClick={() =>
-                        navigateToTransactionDetailsPage(transaction.id)
-                      }
-                    >
-                      <div className="activity-info">
-                        <div className="activity-main">
-                          <span
-                            className={`type-badge ${getTypeColor(transaction.transactionType)}`}
-                          >
-                            {transaction.transactionType}
-                          </span>
-                          <span className="activity-title">
-                            {transaction.product?.name || "Transaction"}
-                          </span>
-                        </div>
-                        <div className="activity-meta">
-                          <span
-                            className={`status-badge ${getStatusColor(transaction.transactionStatus)}`}
-                          >
-                            {transaction.transactionStatus}
-                          </span>
-                          <span className="activity-date">
-                            {formatDate(transaction.createdAt)}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="activity-value">
-                        <span className="value-amount">
-                          {formatCurrency(transaction.totalPrice)}
-                        </span>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <polyline points="9,18 15,12 9,6"></polyline>
-                        </svg>
-                      </div>
+              {ApiService.isAdmin() && <div className="activity-card">
+                <div className="activity-header">
+                  <div className="header-content">
+                    <div className="header-icon transactions">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M6 12h4m4 0h4m-9-3h6m-6 6h6"></path>
+                      </svg>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="empty-state">
-                  <div className="empty-icon">
+                    <h3>Recent Transactions</h3>
+                  </div>
+                  <button
+                    onClick={handleViewAllTransactions}
+                    className="view-all-btn"
+                  >
+                    <span>View All</span>
                     <svg
-                      width="48"
-                      height="48"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.5"
+                      strokeWidth="2"
                     >
-                      <line x1="12" y1="1" x2="12" y2="23"></line>
-                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                      <polyline points="9,18 15,12 9,6"></polyline>
                     </svg>
-                  </div>
-                  <h4>No transactions yet</h4>
-                  <p>Your transaction history will appear here</p>
+                  </button>
                 </div>
-              )}
-            </div>
-          </div>
+
+                <div className="activity-content">
+                  {transactions && transactions.length > 0 ? (
+                    <div className="activity-list">
+                      {transactions.map((transaction) => (
+                        <div
+                          key={transaction.id}
+                          className="activity-item"
+                          onClick={() =>
+                            navigateToTransactionDetailsPage(transaction.id)
+                          }
+                        >
+                          <div className="activity-info">
+                            <div className="activity-main">
+                              <span
+                                className={`type-badge ${getTypeColor(transaction.transactionType)}`}
+                              >
+                                {transaction.transactionType}
+                              </span>
+                              <span className="activity-title">
+                                {transaction.product?.name || "Transaction"}
+                              </span>
+                            </div>
+                            <div className="activity-meta">
+                              <span
+                                className={`status-badge ${getStatusColor(transaction.transactionStatus)}`}
+                              >
+                                {transaction.transactionStatus}
+                              </span>
+                              <span className="activity-date">
+                                {formatDate(transaction.createdAt)}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="activity-value">
+                            <span className="value-amount">
+                              {formatCurrency(transaction.totalPrice)}
+                            </span>
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="empty-state">
+                      <div className="empty-icon">
+                        <svg
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        >
+                          <line x1="12" y1="1" x2="12" y2="23"></line>
+                          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                      </div>
+                      <h4>No transactions yet</h4>
+                      <p>Your transaction history will appear here</p>
+                    </div>
+                  )}
+                </div>
+              </div>}
 
           {/* Recent Requests */}
           <div className="activity-card">

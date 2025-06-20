@@ -220,7 +220,7 @@ const DashboardPage = () => {
               <div className="stat-value">
                 {formatCurrency(stats.totalRevenue)}
               </div>
-              <div className="stat-label">Total Revenue</div>
+              <div className="stat-label">Total Transaction Ammount</div>
             </div>
             <div className="stat-trend positive">
               <svg
