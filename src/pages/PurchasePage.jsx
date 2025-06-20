@@ -8,6 +8,7 @@ const PurchasePage = () => {
   const [productSearch, setProductSearch] = useState("");
   const [productId, setProductId] = useState("");
   const [productDropdownOpen, setProductDropdownOpen] = useState(false);
+  const [productPrice, setProductPrice] = useState("");
   const productSearchRef = useRef(null);
 
   const [suppliers, setSuppliers] = useState([]);
@@ -22,6 +23,8 @@ const PurchasePage = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const selectedProduct = products.find((p) => p.id === productId);
 
   useEffect(() => {
     const fetchProductsAndSuppliers = async () => {
@@ -45,6 +48,14 @@ const PurchasePage = () => {
     };
     fetchProductsAndSuppliers();
   }, []);
+
+  useEffect(() => {
+    if (selectedProduct && selectedProduct.price !== undefined && selectedProduct.price !== null) {
+      setProductPrice(selectedProduct.price);
+    } else {
+      setProductPrice("");
+    }
+  }, [selectedProduct]);
 
   // Filter products as user types
   useEffect(() => {
@@ -122,12 +133,23 @@ const PurchasePage = () => {
     setIsLoading(true);
     const body = {
       productId,
-      quantity: parseInt(quantity),
+      quantity: parseInt(quantity), 
       supplierId,
       description,
     };
 
     try {
+      const formData=new FormData();
+      formData.append("productId",productId);
+      formData.append("price",productPrice);
+      const priceUpdateRes = await ApiService.updateProduct(formData) ;
+      if (priceUpdateRes.status !== 200) {
+        showMessage("Failed to update product price.", "error");
+        setIsLoading(false);
+        return;
+      }
+
+
       const response = await ApiService.purchaseTransaction(body);
       if (response.status === 200) {
         showMessage("Added to inventory successfully.", "success");
@@ -283,7 +305,40 @@ const PurchasePage = () => {
                       ))}
                     </div>
                   )}
+
                 </div>
+
+
+                {selectedProduct && (
+                  <div className="input-group">
+                    <label className="input-label">Product Price</label>
+                    <div className="input-wrapper">
+                      <div className="input-icon">
+                        {/* Indian Rupee Symbol */}
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <text x="2" y="17" fontSize="16" fontFamily="Arial">&#8377;</text>
+                        </svg>
+                      </div>
+                      <input
+                        className="auth-input"
+                        type="number"
+                        value={productPrice}
+                        onChange={(e) => setProductPrice(e.target.value)}
+                        placeholder="Product price"
+                        min="0"
+                        step="0.01"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
 
                 {/* Supplier Selection */}
                 <div className="input-group" ref={supplierSearchRef}>

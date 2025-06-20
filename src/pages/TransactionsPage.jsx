@@ -143,9 +143,9 @@ const TransactionsPage = () => {
 
   const getTypeColor = (type) => {
     switch (type.toLowerCase()) {
-      case "sale":
+      case "withdrawal":
         return "success";
-      case "purchase":
+      case "stock_acquisition":
         return "info";
       default:
         return "neutral";
@@ -346,8 +346,8 @@ const TransactionsPage = () => {
                 className="filter-select"
               >
                 <option value="all">All Types</option>
-                <option value="sale">Sale</option>
-                <option value="purchase">Purchase</option>
+                <option value="withdrawal">Withdrawal</option>
+                <option value="stock_acquisition">Stock_Acquisition</option>
               </select>
             </div>
 
