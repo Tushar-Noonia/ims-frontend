@@ -32,9 +32,9 @@ function App() {
         <Route path="/supplier" element={<AdminRoute element={<SupplierPage />} />} />
         <Route path="/add-supplier" element={<AdminRoute element={<AddEditSupplierPage />} />} />
         <Route path="/edit-supplier/:supplierId" element={<AdminRoute element={<AddEditSupplierPage />} />} />
-        <Route path="/product" element={<AdminRoute element={<ProductPage />} />} />
-        <Route path="/add-product" element={<AdminRoute element={<AddEditProductPage />} />} />
-        <Route path="/edit-product/:productId" element={<AdminRoute element={<AddEditProductPage />} />} />
+        <Route path="/dashboard" element={<AdminRoute element={<DashboardPage />} />} />
+        <Route path="/transactions" element={<AdminRoute element={<TransactionsPage />} />} />
+        <Route path="/transaction/:transactionId" element={<AdminRoute element={<TransactionDetailsPage />} />} />
         
         
 
@@ -44,10 +44,11 @@ function App() {
         <Route path="/requests/:requestId" element={<ProtectedRoute element={<RequestDetailsPage/>}/>}/>
         <Route path="/sale" element={<ProtectedRoute element={<SellPage />} />} />
         <Route path="/purchase" element={<ProtectedRoute element={<PurchasePage />} />} />
-        <Route path="/transactions" element={<ProtectedRoute element={<TransactionsPage />} />} />
-        <Route path="/transaction/:transactionId" element={<ProtectedRoute element={<TransactionDetailsPage />} />} />
+        <Route path="/product" element={<ProtectedRoute element={<ProductPage />} />} />
+        <Route path="/add-product" element={<ProtectedRoute element={<AddEditProductPage />} />} />
+        <Route path="/edit-product/:productId" element={<ProtectedRoute element={<AddEditProductPage />} />} />
         <Route path="/user/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-        <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage />} />} />
+        
         
         
 

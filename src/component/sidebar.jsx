@@ -64,7 +64,7 @@ const Sidebar = () => {
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
       ),
-      show: isAuthenticated,
+      show: isAdmin,
     },
     {
       path: "/transactions",
@@ -82,7 +82,7 @@ const Sidebar = () => {
           <path d="M6 12h4m4 0h4m-9-3h6m-6 6h6"></path>
         </svg>
       ),
-      show: isAuthenticated,
+      show: isAdmin,
     },
     {
       path: "/category",
@@ -101,7 +101,7 @@ const Sidebar = () => {
           <line x1="12" y1="22.08" x2="12" y2="12"></line>
         </svg>
       ),
-      show: isAdmin,
+      show: isAuthenticated,
     },
     {
       path: "/product",
@@ -120,7 +120,7 @@ const Sidebar = () => {
           <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
       ),
-      show: isAdmin,
+      show: isAuthenticated,
     },
     {
       path: "/supplier",
