@@ -3,6 +3,8 @@ import Layout from "../component/layout";
 import ApiService from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
 import PaginationComponent from "../component/paginationComponent";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import TransactionsTablePDF from "../component/transactionsTablePDF";
 
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
@@ -13,6 +15,8 @@ const TransactionsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [stats, setStats] = useState({
     total: 0,
     completed: 0,
@@ -31,52 +35,61 @@ const TransactionsPage = () => {
     const getTransactions = async () => {
       setIsLoading(true);
       try {
-        const response = await ApiService.getAllTransactions(valueToSearch);
+        let response;
+        let filteredTransactions = [];
 
-        if (response.status === 200) {
-          let filteredTransactions = response.transactions;
-
-          // Apply filters
-          if (selectedStatus !== "all") {
-            filteredTransactions = filteredTransactions.filter(
-              (t) => t.transactionStatus.toLowerCase() === selectedStatus,
-            );
+        // If both dates are selected, use getTransactionsBetweenDates
+        if (startDate && endDate) {
+          response = await ApiService.getTransactionsBetweenDates(startDate, endDate);
+          if (response.status === 200) {
+            filteredTransactions = response.transactions;
           }
-
-          if (selectedType !== "all") {
-            filteredTransactions = filteredTransactions.filter(
-              (t) => t.transactionType.toLowerCase() === selectedType,
-            );
+        } else {
+          // Otherwise, fetch all and filter as before
+          response = await ApiService.getAllTransactions(valueToSearch);
+          if (response.status === 200) {
+            filteredTransactions = response.transactions;
           }
-
-          setTotalPages(Math.ceil(filteredTransactions.length / itemsPerPage));
-
-          setTransactions(
-            filteredTransactions.slice(
-              (currentPage - 1) * itemsPerPage,
-              currentPage * itemsPerPage,
-            ),
-          );
-
-          // Calculate stats
-          const totalValue = response.transactions.reduce(
-            (sum, t) => sum + (t.totalPrice || 0),
-            0,
-          );
-          const completed = response.transactions.filter(
-            (t) => t.transactionStatus.toLowerCase() === "completed",
-          ).length;
-          const pending = response.transactions.filter(
-            (t) => t.transactionStatus.toLowerCase() === "pending",
-          ).length;
-
-          setStats({
-            total: response.transactions.length,
-            completed,
-            pending,
-            totalValue,
-          });
         }
+
+        // Apply filters
+        if (selectedStatus !== "all") {
+          filteredTransactions = filteredTransactions.filter(
+            (t) => t.transactionStatus.toLowerCase() === selectedStatus,
+          );
+        }
+        if (selectedType !== "all") {
+          filteredTransactions = filteredTransactions.filter(
+            (t) => t.transactionType.toLowerCase() === selectedType,
+          );
+        }
+
+        setTotalPages(Math.ceil(filteredTransactions.length / itemsPerPage));
+        setTransactions(
+          filteredTransactions.slice(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage,
+          ),
+        );
+
+        // Calculate stats
+        const totalValue = filteredTransactions.reduce(
+          (sum, t) => sum + (t.totalPrice || 0),
+          0,
+        );
+        const completed = filteredTransactions.filter(
+          (t) => t.transactionStatus.toLowerCase() === "completed",
+        ).length;
+        const pending = filteredTransactions.filter(
+          (t) => t.transactionStatus.toLowerCase() === "pending",
+        ).length;
+
+        setStats({
+          total: filteredTransactions.length,
+          completed,
+          pending,
+          totalValue,
+        });
       } catch (error) {
         showMessage(
           error.response?.data?.message ||
@@ -89,7 +102,14 @@ const TransactionsPage = () => {
     };
 
     getTransactions();
-  }, [currentPage, valueToSearch, selectedStatus, selectedType]);
+  }, [
+    currentPage,
+    valueToSearch,
+    selectedStatus,
+    selectedType,
+    startDate,
+    endDate,
+  ]);
 
   // Method to show message or errors
   const showMessage = (msg, type = "error") => {
@@ -113,6 +133,8 @@ const TransactionsPage = () => {
     setValueToSearch("");
     setSelectedStatus("all");
     setSelectedType("all");
+    setStartDate("");
+    setEndDate("");
     setCurrentPage(1);
   };
 
@@ -351,6 +373,31 @@ const TransactionsPage = () => {
               </select>
             </div>
 
+            {/* Start Date Filter */}
+            <div className="filter-group filter-date-group">
+              <label htmlFor="start-date-input" className="filter-label">Start Date:</label>
+              <input
+                id="start-date-input"
+                type="datetime-local"
+                value={startDate}
+                onChange={(e) => { setStartDate(e.target.value); setCurrentPage(1); }}
+                className="filter-date-input"
+                autoComplete="off"
+              />
+            </div>
+            {/* End Date Filter */}
+            <div className="filter-group filter-date-group">
+              <label htmlFor="end-date-input" className="filter-label">End Date:</label>
+              <input
+                id="end-date-input"
+                type="datetime-local"
+                value={endDate}
+                onChange={(e) => { setEndDate(e.target.value); setCurrentPage(1); }}
+                className="filter-date-input"
+                autoComplete="off"
+              />
+            </div>
+
             <button onClick={handleClearFilters} className="clear-filters-btn">
               <svg
                 width="16"
@@ -366,6 +413,21 @@ const TransactionsPage = () => {
               </svg>
               Clear Filters
             </button>
+            <PDFDownloadLink
+              document={<TransactionsTablePDF transactions={transactions || []} />}
+              fileName="transactions.pdf"
+              style={{
+                textDecoration: "none",
+                padding: "8px 16px",
+                color: "#fff",
+                background: "#008080",
+                borderRadius: 4,
+                marginBottom: 16,
+                display: "inline-block"
+              }}
+            >
+              {({ loading }) => (loading ? "Preparing PDF..." : "Download PDF")}
+            </PDFDownloadLink>
           </div>
         </div>
 
@@ -499,16 +561,3 @@ const TransactionsPage = () => {
 };
 
 export default TransactionsPage;
-
-
-
-
-
-
-
-
-
-
-
-
-

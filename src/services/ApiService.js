@@ -273,6 +273,14 @@ export default class ApiService {
     }
 
 
+    static async getTransactionsBetweenDates(startDate,endDate){
+        const response=await axios.get(`${this.BASE_URL}/transactions/between-dates`,{headers: this.getHeader() 
+            ,params:{startDate:startDate,endDate:endDate}
+        });
+        return response.data;
+    }
+
+
     // REQUEST API CALLS
 
     static async addRequest(requestData) {

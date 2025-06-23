@@ -3847,6 +3847,7 @@ body:has(.elegant-sidebar.mobile-open) {
   gap: 24px;
   align-items: flex-end;
   transition: all 0.3s ease;
+  flex-direction: column;
 }
 
 .transactions-controls:hover {
@@ -3912,10 +3913,14 @@ body:has(.elegant-sidebar.mobile-open) {
 }
 
 .filter-section {
-  flex: 1;
+  flex: 1 1;
   display: flex;
+  width: 100%;
   gap: 16px;
-  align-items: flex-end;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-around;
+
 }
 
 .filter-group {
@@ -3923,6 +3928,37 @@ body:has(.elegant-sidebar.mobile-open) {
   flex-direction: column;
   gap: 8px;
 }
+
+/* Style for filter-section date inputs */
+.filter-date-input {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #f8fafc;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filter-date-input:focus {
+  border-color: #008080;
+  background: #fff;
+}
+
+.filter-group label {
+  display: block;
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+
 
 .filter-group label {
   font-size: 14px;

@@ -108,9 +108,9 @@ const TransactionDetailsPage = () => {
 
   const getTypeColor = (type) => {
     switch (type?.toLowerCase()) {
-      case "sale":
+      case "withdrawal":
         return "success";
-      case "purchase":
+      case "stock_acquisition":
         return "info";
       default:
         return "neutral";
