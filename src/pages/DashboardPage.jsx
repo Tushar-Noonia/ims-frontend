@@ -45,10 +45,9 @@ const DashboardPage = () => {
           setTransactions(allTransactions.slice(0, 5));
 
           // Calculate stats
-          const totalRevenue = allTransactions.reduce(
-            (sum, t) => sum + (t.totalPrice || 0),
-            0,
-          );
+            const totalRevenue = allTransactions
+            .filter((t) => t.transactionType === "STOCK_ACQUISITION")
+            .reduce((sum, t) => sum + (t.totalPrice || 0), 0);
           setStats((prev) => ({
             ...prev,
             totalTransactions: allTransactions.length,
@@ -75,7 +74,7 @@ const DashboardPage = () => {
           setRequests(allRequests.slice(0, 5));
           setStats((prev) => ({
             ...prev,
-            pendingRequests: allRequests.length,
+            pendingRequests: allRequests.filter(r => r.requestStatus && r.requestStatus.toLowerCase() === "pending").length,
           }));
         }
       } catch (error) {

@@ -73,7 +73,9 @@ const TransactionsPage = () => {
         );
 
         // Calculate stats
-        const totalValue = filteredTransactions.reduce(
+        const totalValue = filteredTransactions
+        .filter((t)=>t.transactionType.toLowerCase()==="stock_acquisition")
+        .reduce(
           (sum, t) => sum + (t.totalPrice || 0),
           0,
         );
